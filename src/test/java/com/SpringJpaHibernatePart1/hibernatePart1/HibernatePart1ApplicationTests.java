@@ -7,8 +7,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
@@ -30,10 +32,10 @@ class HibernatePart1ApplicationTests {
 	@Test
 	void CreateTest(){
 		Employee employee = new Employee();
-		employee.setName("lalit");
-		employee.setId(1);
-		employee.setAge(22);
-		employee.setLocation("pithoragarh");
+		employee.setName("vineet");
+		employee.setId(2);
+		employee.setAge(24);
+		employee.setLocation("noida");
 		repositry.save(employee);
 	}
     @Test
@@ -60,12 +62,17 @@ class HibernatePart1ApplicationTests {
 		System.out.println("****total rows: " + repositry.count() + " ******");
 	}
 
-//	@Test
-//	public void pagableTest(){
-//		Pageable pageable = new PageRequest(0,1);
+	@Test
+	public void pagableTest(){
+//		Page<Employee> employees =
+//				repositry.findAll(PageRequest.of(0,1, Sort.by("age").ascending()));
 //
-//
-//	}
+//     employees.forEach(e-> System.out.println(e.getName()));
+		Pageable paging = PageRequest.of(0, 1, Sort.by(Sort.Order.asc("name")));
+		Page<Employee> pagedResult = repositry.findAllByAge(22,paging);
+		pagedResult.get().forEach(System.out::println);
+
+	}
 	@Test
 	public void findByNameTest(){
 		List<Employee> employees = repositry.findByName("lalit");

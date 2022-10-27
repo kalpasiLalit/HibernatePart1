@@ -1,14 +1,13 @@
 package com.SpringJpaHibernatePart1.hibernatePart1.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "employee")
 public class Employee {
     private String name;
     @Id
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private  int age;
     private String location;
